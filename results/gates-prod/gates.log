@@ -1,0 +1,18 @@
+== tools
+PASS tools: 32/32 cases
+== mtp
+FAIL mtp: acceptance 0.651 over 2426 drafts (1 stream, default sampling)
+== logprobs 20
+PASS logprobs: 20/20 requests with complete, finite logprobs
+== gsm8k
+PASS gsm8k: 49/50 (missed [12])
+== needles 16000,64000,120000
+  needle varied 16019 tokens: [True, True, True] 'PELICAN-4471\nOSPREY-8802\nKESTREL-1359'
+  needle varied 64050 tokens: [True, True, True] 'PELICAN-4471\nOSPREY-8802\nKESTREL-1359'
+  needle varied 120089 tokens: [True, True, True] 'PELICAN-4471\nOSPREY-8802\nKESTREL-1359'
+PASS needles: survey@16036:3/3 survey@64543:3/3 survey@122671:3/3 varied@16019:3/3 varied@64050:3/3 varied@120089:3/3
+== speed
+PASS speed: C=1: 89.25 tok/s per stream, 89.60 aggregate, TTFT 0.33 s; C=4: 47.55 tok/s per stream, 144.82 aggregate, TTFT 1.02 s (~2K-token prompt, greedy, 256 tokens, median of 3)
+== stress
+PASS stress: 4/4 decodes finished, needles [(65553, 3), (102419, 3)], largest decode inter-token gap 1.7 s
+GATES_DONE

@@ -1,0 +1,37 @@
+waiting for http://127.0.0.1:8000/health
+  A: '53, 59, 61, 67, 71'
+  (26 prompt + 15 completion tokens, 0.3 s, 53.8 tok/s incl. prefill; finish stop)
+
+decode per stream: median 60.1 tok/s = 16.63 ms/token (middle half 60.1..60.1, min 60.1, max 60.1); TTFT median 3.99 s; streams 1
+decode per stream: median 59.9 tok/s = 16.68 ms/token (middle half 59.9..59.9, min 59.9, max 59.9); TTFT median 4.08 s; streams 1
+decode per stream: median 52.4 tok/s = 19.07 ms/token (middle half 52.4..52.4, min 52.4, max 52.4); TTFT median 6.37 s; streams 1
+natural text (temperature 1.0, top_p 0.95), 1 stream: median 69.7 tok/s = 14.35 ms/token (min 63.5, max 75.9); speculative acceptance 0.738 over 324 drafts
+{"when": "2026-11-12T01:55:43Z", "kind": "varied", "target": 8000, "prompt_tokens": 7975, "needles": "3/3", "ttft_s": 1.045, "prefill_tok_s": 7631.6, "answer_tokens": 25, "answer_tok_s": 83.71, "answer_tail": "PELICAN-4471\nOSPREY-8802\nKES
+{"when": "2026-11-12T01:55:57Z", "kind": "varied", "target": 40000, "prompt_tokens": 40015, "needles": "3/3", "ttft_s": 6.495, "prefill_tok_s": 6160.9, "answer_tokens": 25, "answer_tok_s": 83.87, "answer_tail": "PELICAN-4471\nOSPREY-8802\nK
+warm-up done
+turn 1: 2825 prompt + 1226 generated tokens, code '7K4XQ9M2TA'; turn 2 at 4073 tokens answered '7K4XQ9M2TA'
+PASS crosscheck: a code written below the sparse-decode threshold is recalled above it
+turn 1: 1449 prompt + 1786 generated tokens, code '7K4QM9X2PA'; turn 2 at 3257 tokens answered '7K4QM9X2PA'
+PASS crosscheck: a code written below the sparse-decode threshold is recalled above it
+== tools
+FAIL tools: 31/32 cases, failed ['required-history/stream/default']
+== mtp
+FAIL mtp: acceptance 0.677 over 2466 drafts (1 stream, default sampling)
+== logprobs 20
+PASS logprobs: 20/20 requests with complete, finite logprobs
+== gsm8k
+PASS gsm8k: 49/50 (missed [12])
+== needles 16000,64000,120000
+  needle survey 16039 tokens: [True, True, True] 'PELICAN-4471\nOSPREY-8802\nKESTREL-1359'
+  needle survey 64516 tokens: [True, True, True] 'PELICAN-4471\nOSPREY-8802\nKESTREL-1359'
+  needle survey 122672 tokens: [True, True, True] 'PELICAN-4471\nOSPREY-8802\nKESTREL-1359'
+  needle varied 16018 tokens: [True, True, True] 'PELICAN-4471\nOSPREY-8802\nKESTREL-1359'
+  needle varied 64050 tokens: [True, True, True] 'PELICAN-4471\nOSPREY-8802\nKESTREL-1359'
+  needle varied 120005 tokens: [True, True, True] 'PELICAN-4471\nOSPREY-8802\nKESTREL-1359'
+PASS needles: survey@16039:3/3 survey@64516:3/3 survey@122672:3/3 varied@16018:3/3 varied@64050:3/3 varied@120005:3/3
+== speed
+PASS speed: C=1: 79.48 tok/s per stream, 79.79 aggregate, TTFT 0.34 s; C=4: 47.46 tok/s per stream, 144.87 aggregate, TTFT 1.03 s (~2K-token prompt, greedy, 256 tokens, median of 3)
+== stress
+PASS stress: 4/4 decodes finished, needles [(65617, 3), (102447, 3)], largest decode inter-token gap 7.1 s
+GATES_DONE
+ALL_DONE

@@ -1,0 +1,29 @@
+# Stock vllm-gaudi releases/v0.30.0 at the commits the gaudi-cookbook GLM-5 port is written against.
+# Mirrors vllm-gaudi/.cd/Dockerfile.ubuntu.pytorch.vllm with both commits pinned and the base pinned by digest.
+ARG BASE=vault.habana.ai/gaudi-docker/1.24.1/ubuntu24.04/habanalabs/pytorch-installer-2.11.0@sha256:b257eaeffdc6ba5e1deaa4ca3aad8ec9ed0d777d00794a0635050e0160f09fd8
+FROM ${BASE}
+ARG VLLM_GAUDI_COMMIT=058f107a2a63319334c8d442acc854a957e35ce8
+ARG VLLM_PROJECT_COMMIT=ced6857afa0ea7b2e3f0846a62e1394e90f15607
+ARG PT_VERSION=2.11.0
+ENV OMPI_MCA_btl_vader_single_copy_mechanism=none \
+    HABANA_VISIBLE_DEVICES=all \
+    VLLM_PATH=/workspace/vllm-project \
+    VLLM_PATH2=/workspace/vllm-gaudi
+RUN apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends gettext moreutils jq git ca-certificates iproute2 iputils-ping && \
+    ln -sf /usr/bin/python3 /usr/bin/python && rm -rf /var/lib/apt/lists/*
+RUN set -e && \
+    git clone https://github.com/vllm-project/vllm-gaudi.git $VLLM_PATH2 && \
+    git -C $VLLM_PATH2 checkout ${VLLM_GAUDI_COMMIT} && \
+    test "$(tr -d '[:space:]' < $VLLM_PATH2/VLLM_STABLE_COMMIT)" = "${VLLM_PROJECT_COMMIT}" && \
+    git clone https://github.com/vllm-project/vllm.git $VLLM_PATH && \
+    git -C $VLLM_PATH checkout ${VLLM_PROJECT_COMMIT} && \
+    cd $VLLM_PATH && \
+    bash -c "pip install -r <(sed '/^torch/d' requirements/build/cuda.txt)" && \
+    VLLM_TARGET_DEVICE=empty pip install --no-build-isolation . && \
+    cd $VLLM_PATH2 && \
+    VLLM_TARGET_DEVICE=hpu pip install . --no-build-isolation
+RUN pip install --no-cache-dir --no-deps --extra-index-url https://download.pytorch.org/whl/cpu torchaudio==${PT_VERSION}
+# The Habana PyTorch fork must survive the installs, and both packages must import.
+RUN python3 -c "import torch; v = torch.__version__; assert '+cpu' not in v and '+cu' not in v, v; import habana_frameworks.torch; import importlib.metadata as m; print('torch', v, '| vllm', m.version('vllm'), '| vllm_gaudi', m.version('vllm_gaudi'))"
+WORKDIR /root

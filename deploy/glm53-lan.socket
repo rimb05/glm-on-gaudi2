@@ -1,0 +1,18 @@
+# Optional: the GLM-5.3 API on a private network address of node 0. The API itself stays on loopback
+# (deploy/glm53.env: API_HOST=127.0.0.1); systemd listens on the address below and forwards each connection.
+# Without an API key (API_KEY in deploy/site.env) everyone who can reach the address can use the model, so the
+# host firewall should admit only the networks that are meant to.
+# Install: sed "s/@LAN_ADDR@/NODE0_PRIVATE_ADDRESS/" /workspace/glm53/deploy/glm53-lan.socket | sudo tee /etc/systemd/system/glm53-lan.socket
+#          sudo cp /workspace/glm53/deploy/glm53-lan.service /etc/systemd/system/
+#          sudo systemctl daemon-reload && sudo systemctl enable --now glm53-lan.socket
+# Remove:  sudo systemctl disable --now glm53-lan.socket glm53-lan.service
+[Unit]
+Description=GLM-5.3 API on a private network address (forwarded to the loopback API)
+
+[Socket]
+ListenStream=@LAN_ADDR@:8000
+FreeBind=true
+NoDelay=true
+
+[Install]
+WantedBy=sockets.target

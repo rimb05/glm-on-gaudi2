@@ -1,0 +1,28 @@
+# GLM-5.3 on two Gaudi 2 servers: node 1 (pipeline stage 1).
+# Install, as the account that owns /workspace/glm53 and may run `sudo -n docker`:
+#   sed "s/@USER@/$USER/" /workspace/glm53/deploy/glm53-node1.service | sudo tee /etc/systemd/system/glm53-node1.service
+#   sudo systemctl daemon-reload
+# Start:   sudo systemctl start glm53-node1      (node 0 on one server, node 1 on the other; any order)
+# Stop:    sudo systemctl stop glm53-node1       (stopping either node ends the other's container; it then waits)
+# The unit is not enabled at boot unless you run: sudo systemctl enable glm53-node1
+# It takes all 8 Gaudi cards of this server; stop it before anything else needs them.
+[Unit]
+Description=GLM-5.3 serving, node 1 of 2
+After=docker.service network-online.target
+Requires=docker.service
+
+[Service]
+Type=simple
+User=@USER@
+# Decode speed depends on the host's core frequency (README, "CPU frequency governor"). If nothing else on the
+# server manages the governor, uncomment ("$$" is systemd's spelling of a literal "$"):
+#ExecStartPre=+/bin/sh -c 'for g in /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor; do echo performance > $$g; done'
+ExecStart=/workspace/glm53/deploy/serve_node.sh 1
+ExecStop=/usr/bin/sudo -n /usr/bin/docker stop -t 20 glm53-serve
+Restart=always
+RestartSec=15
+TimeoutStartSec=0
+TimeoutStopSec=60
+
+[Install]
+WantedBy=multi-user.target

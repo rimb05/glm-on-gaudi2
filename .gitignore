@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.DS_Store
+*.partial
+.pytest_cache/
+# the installation's own settings (copy deploy/site.env.example)
+deploy/site.env

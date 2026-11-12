@@ -1,0 +1,14 @@
+== tools
+FAIL tools: 30/32 cases, failed ['required-history/plain/default', 'required-history/stream/default']
+== gsm8k
+PASS gsm8k: 49/50 (missed [12])
+== needles 16000,64000,120000
+  needle survey 16038 tokens: [True, True, True] 'PELICAN-4471\nOSPREY-8802\nKESTREL-1359'
+  needle survey 64515 tokens: [True, True, True] 'PELICAN-4471\nOSPREY-8802\nKESTREL-1359'
+  needle survey 122610 tokens: [True, True, True] 'PELICAN-4471\nOSPREY-8802\nKESTREL-1359'
+  needle varied 16020 tokens: [True, True, True] 'PELICAN-4471\nOSPREY-8802\nKESTREL-1359'
+  needle varied 63989 tokens: [True, True, True] 'PELICAN-4471\nOSPREY-8802\nKESTREL-1359'
+  needle varied 120091 tokens: [True, True, True] 'PELICAN-4471\nOSPREY-8802\nKESTREL-1359'
+PASS needles: survey@16038:3/3 survey@64515:3/3 survey@122610:3/3 varied@16020:3/3 varied@63989:3/3 varied@120091:3/3
+GATES_DONE
+ALL_DONE

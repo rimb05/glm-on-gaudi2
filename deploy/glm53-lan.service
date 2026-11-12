@@ -1,0 +1,10 @@
+# Started by glm53-lan.socket: forwards incoming connections to the API on 127.0.0.1:8000.
+[Unit]
+Description=GLM-5.3 API forwarder (to 127.0.0.1:8000)
+Requires=glm53-lan.socket
+After=glm53-lan.socket
+
+[Service]
+ExecStart=/lib/systemd/systemd-socket-proxyd 127.0.0.1:8000
+DynamicUser=yes
+PrivateTmp=yes
