@@ -561,7 +561,7 @@ workstation with SSH access to both. Paths and image tags are the ones the scrip
 On the workstation:
 
 ```bash
-git clone <this repository> && cd gaudi-glm53
+git clone <this repository> && cd glm-on-gaudi2
 cp deploy/site.env.example deploy/site.env      # then edit: SSH destinations, fabric interface and addresses
 bin/sync_code.sh                                # code and settings to /workspace/glm53/code on both servers
 ```
