@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 # SPDX-License-Identifier: Apache-2.0
+# From thediymaker/gaudi-cookbook (ports/glm-5-mxfp4/tests/hpu/glm5_gates.py at commit 1540263, Apache-2.0).
+# Changed here: the API_KEY block below the imports (a bearer token for a server started with --api-key).
 """Serving gates and measurements for a GLM-5.2 or GLM-5.3 MXFP4 endpoint. Standard library only.
 
   needles T1,T2,...        3 needles (10 / 50 / 90% depth) in two synthetic fillers at each prompt length (tokens),

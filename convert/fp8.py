@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """FP8 (E4M3) per-output-channel weight quantization for Gaudi 2.
 
 One fp32 scale per output channel (row of a [out, in] weight): scale = amax / 240. 240 is the largest finite value

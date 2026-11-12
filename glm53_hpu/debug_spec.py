@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Diagnostics for speculative decoding on HPU (GLM_DEBUG_SPEC=1): shapes that reach the draft model.
 Installed from fastlink.install_runner; prints the first few calls on tensor-parallel rank 0 only."""
 import os

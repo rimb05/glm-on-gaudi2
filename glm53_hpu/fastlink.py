@@ -1,4 +1,6 @@
 # SPDX-License-Identifier: Apache-2.0
+# The last-stage forward in this file follows HPUModelRunner._execute_model_generic of vllm-gaudi as patched by
+# the gaudi-cookbook's pipeline-parallel fix (both Apache-2.0), so this file stays under that licence (see NOTICE).
 """Fast stage-to-stage link for pipeline parallelism on HPU: decode-sized hidden states go card to card.
 
 The gaudi-cookbook pipeline fix moves a stage's output to the next stage as CPU tensors over gloo: the sender copies

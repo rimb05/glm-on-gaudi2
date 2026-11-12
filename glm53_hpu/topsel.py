@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Exact top-k selection shaped for Gaudi 2's TPC kernels (plain torch; runs on the CPU for tests).
 
 Measured on one card (tools/scan_bench.py): torch.topk / torch.sort run one row per TPC core, so a [2, 90K] top-2048

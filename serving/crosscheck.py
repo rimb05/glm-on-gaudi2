@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Does the model still see what it wrote while the context was short, once the context is long?
 
   crosscheck.py [--prompt-tokens 3000] [--essay-words 900]      env BASE, MODEL, API_KEY

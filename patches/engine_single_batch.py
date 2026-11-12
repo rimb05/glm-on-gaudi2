@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 # SPDX-License-Identifier: Apache-2.0
+# This patch contains source text of EngineCore from vLLM (vllm-project/vllm, Apache-2.0) and modified versions
+# of it, so this file stays under that licence (see NOTICE).
 """engine-single-batch: one batch in flight at a time under pipeline parallelism (GLM_ENGINE_SINGLE_BATCH=1).
 
 vLLM lets pipeline_parallel_size batches be in flight (EngineCore.step_with_batch_queue). That loop is wrong for

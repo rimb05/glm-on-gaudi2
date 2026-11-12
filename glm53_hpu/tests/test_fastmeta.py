@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """CPU check: glm53_hpu.fastmeta.paged_buffers returns what vllm-gaudi's list code returns.  python3 test_fastmeta.py"""
 import itertools
 import os

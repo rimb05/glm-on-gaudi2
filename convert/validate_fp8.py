@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Check an FP8 checkpoint written by bf16_to_fp8.py against its BF16 source, with independent code.
 
 For every routed-expert tensor of the requested layers:

@@ -1,5 +1,7 @@
+# SPDX-License-Identifier: Apache-2.0
 # Stock vllm-gaudi releases/v0.30.0 at the commits the gaudi-cookbook GLM-5 port is written against.
 # Mirrors vllm-gaudi/.cd/Dockerfile.ubuntu.pytorch.vllm with both commits pinned and the base pinned by digest.
+# That file is Apache-2.0 (vllm-project/vllm-gaudi), so this one stays under that licence (see NOTICE).
 ARG BASE=vault.habana.ai/gaudi-docker/1.24.1/ubuntu24.04/habanalabs/pytorch-installer-2.11.0@sha256:b257eaeffdc6ba5e1deaa4ca3aad8ec9ed0d777d00794a0635050e0160f09fd8
 FROM ${BASE}
 ARG VLLM_GAUDI_COMMIT=058f107a2a63319334c8d442acc854a957e35ce8

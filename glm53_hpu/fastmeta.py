@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Decode-step metadata without per-block Python work (GLM_FAST_META=1).
 
 vllm-gaudi rebuilds the paged-attention block lists of every decode step with Python lists: one list per row of

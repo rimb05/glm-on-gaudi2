@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Convert a BF16 GLM-5.3 (glm_moe_dsa) checkpoint into the FP8 checkpoint vllm-gaudi serves on Gaudi 2.
 
   routed experts   model.layers.L.mlp.experts.E.{gate,up,down}_proj.weight  BF16 -> F8_E4M3, one fp32 scale per output

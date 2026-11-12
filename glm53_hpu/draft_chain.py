@@ -1,4 +1,6 @@
 # SPDX-License-Identifier: Apache-2.0
+# The early_draft function in this file extends decode_lean.early_draft of the gaudi-cookbook's GLM-5 port
+# (thediymaker/gaudi-cookbook, Apache-2.0), so this file stays under that licence (see NOTICE).
 """More than one MTP draft token per step without leaving the device (GLM_DRAFT_CHAIN=1, with GLM_EARLY_DRAFT=1 and
 GLM_SPEC_DEVICE_REJECT=1 and --speculative-config num_speculative_tokens >= 2).
 

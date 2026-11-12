@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Build a "performance twin" of GLM-5.3: N layers with the real per-layer dimensions, for timing and memory work.
 
 The twin is NOT a usable model: its text is meaningless. It exists because the real checkpoint (744B parameters)

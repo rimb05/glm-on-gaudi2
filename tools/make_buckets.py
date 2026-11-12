@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Write the VLLM_BUCKETING_FROM_FILE bucket set for the two-server GLM-5.3 deployment.
 
   make_buckets.py OUT [--max-blocks 5632] [--chunk 4096]

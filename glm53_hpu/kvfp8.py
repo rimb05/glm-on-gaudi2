@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """GLM_KV_FP8=int8 (or fp8): make vllm-gaudi account for and allocate the MLA latent caches as 8-bit tensors.
 
 The latent cache is the device memory that limits the context: 576 values per token and layer, replicated on every

@@ -1,0 +1,43 @@
+glm-on-gaudi2
+Copyright (c) 2026 rimb05
+
+This repository is released under the MIT License (see LICENSE), with the exception of the files listed below.
+They contain or adapt code from projects that are licensed under the Apache License, Version 2.0, and they stay
+under that licence. Its text is in LICENSES/Apache-2.0.txt, and each of these files names its origin in its header.
+
+  glm53_hpu/dsa.py
+  glm53_hpu/tests/test_dsa_core.py
+      dsa.py is a revision of ports/glm-5-mxfp4/glm5_hpu/glm5_hpu/dsa.py of the gaudi-cookbook
+      (https://github.com/thediymaker/gaudi-cookbook, commit 1540263). Its header lists the changes.
+      test_dsa_core.py tests it.
+
+  glm53_hpu/draft_chain.py
+      Its early_draft function extends decode_lean.early_draft of the same gaudi-cookbook port.
+
+  glm53_hpu/fastlink.py
+      Its last-stage forward follows HPUModelRunner._execute_model_generic of vllm-gaudi
+      (https://github.com/vllm-project/vllm-gaudi, releases/v0.30.0 at 058f107) as patched by the
+      gaudi-cookbook's pipeline-parallel fix.
+
+  patches/engine_skip_empty.py
+  patches/engine_single_batch.py
+  patches/engine_wave.py
+      Contain source text of EngineCore from vLLM (https://github.com/vllm-project/vllm, commit ced6857a)
+      and modified versions of it.
+
+  serving/cookbook_gates/glm5_gates.py
+  serving/cookbook_gates/run_gates.sh
+      From ports/glm-5-mxfp4/tests/hpu/ of the gaudi-cookbook. glm5_gates.py has API-key support added;
+      run_gates.sh is unchanged.
+
+  image/Dockerfile.base
+      Follows .cd/Dockerfile.ubuntu.pytorch.vllm of vllm-gaudi, with the base image and both source commits
+      pinned.
+
+Data:
+
+  serving/cookbook_gates/gsm8k50.json
+      50 questions of the GSM8K test set (https://github.com/openai/grade-school-math), MIT License,
+      Copyright (c) 2021 OpenAI, as distributed with the gaudi-cookbook's serving gates.
+
+No model weights are included. GLM-5.3 is distributed by Z.ai under the GLM-5.3 License.

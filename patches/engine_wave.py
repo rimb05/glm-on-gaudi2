@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 # SPDX-License-Identifier: Apache-2.0
+# This patch contains source text of EngineCore from vLLM (vllm-project/vllm, Apache-2.0) and modified versions
+# of it, so this file stays under that licence (see NOTICE).
 """engine-wave: overlap prefill chunks across the pipeline stages, one step at a time for decode
 (GLM_ENGINE_PREFILL_WAVE=1). Apply after engine_skip_empty.py and engine_single_batch.py; use it INSTEAD of
 GLM_ENGINE_SINGLE_BATCH=1 (leave that off: this mode needs vLLM's batch queue).

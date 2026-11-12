@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """GLM_DSA_V2=1: install this project's glm53_hpu/dsa.py (the long-context revision of the cookbook's sparse
 attention module) over the image's glm5_hpu/dsa.py. The original is kept next to it as dsa.py.orig. Idempotent.
 

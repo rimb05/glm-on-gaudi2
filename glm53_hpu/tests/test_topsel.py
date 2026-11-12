@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """CPU checks for glm53_hpu/topsel.py:  python3 test_topsel.py"""
 import os
 import sys

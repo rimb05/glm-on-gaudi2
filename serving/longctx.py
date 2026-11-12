@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Long-context check for the GLM-5.3 endpoint: correctness (three needles), time to first token and decode speed.
 
   longctx.py needle --tokens 128000 [--kind varied|survey] [--followup 300] [--out FILE.jsonl]

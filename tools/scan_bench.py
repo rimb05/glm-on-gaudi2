@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Device-time benchmark of the decode-time indexer scan and sparse attention on Gaudi 2 (one process per card).
 
   RANK=r WORLD_SIZE=n MASTER_ADDR=127.0.0.1 MASTER_PORT=29600 python3 scan_bench.py        (see run_scan_bench.sh)

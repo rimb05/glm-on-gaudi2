@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Write the download manifest of one revision of a Hugging Face model repository.
 
   make_manifest.py REPO [REVISION] > MANIFEST.tsv        (REVISION: a commit hash, a tag or a branch; default main)

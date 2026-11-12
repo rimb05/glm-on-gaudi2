@@ -1,4 +1,5 @@
 # SPDX-License-Identifier: Apache-2.0
+# Tests of glm53_hpu/dsa.py, which derives from the gaudi-cookbook (Apache-2.0); same licence (see NOTICE).
 """CPU checks for the long-context revision of the sparse-attention module (glm53_hpu/dsa.py).
 
   python3 test_dsa_core.py        (needs torch; no Gaudi device)

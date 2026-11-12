@@ -19,6 +19,9 @@ what it measured, and which mistakes cost time. It is written so that someone wi
 again, and so that someone bringing another large model to Gaudi can see which problems appear and how they were
 solved. No model weights are included.
 
+Licence: MIT. A few files adapt code from Apache-2.0 projects and keep that licence; see
+[section 17](#17-credits-and-licences).
+
 ## Contents
 
 1. [Goal and result](#1-goal-and-result)
@@ -123,7 +126,7 @@ they expect and stop if it has drifted, so a newer vLLM or vllm-gaudi needs them
 
 ### 3.1 The model
 
-Figures from `meta/glm-5.3.config.json`:
+Figures from the model's `config.json`:
 
 | | |
 | --- | --- |
@@ -1036,6 +1039,7 @@ stay out of compiled graphs), `--long-prefill-token-threshold 4096`, `--block-si
 
 ```
 README.md                 this document
+LICENSE NOTICE LICENSES/  MIT licence; the files that stay under Apache-2.0 and why; the Apache-2.0 text
 bin/                      run on the workstation
   lib.sh                    reads deploy/site.env, reaches the servers
   sync_code.sh              push code and settings to both servers
@@ -1055,7 +1059,7 @@ glm53_hpu/                runtime modules (imported inside the serving container
   debug_spec.py             diagnostics for speculative decoding
   tests/                    CPU tests
 image/                    Dockerfiles of the base and the serving image
-meta/                     the model's config; manifests of the two public test models
+meta/                     manifests of the two public test models
 patches/                  source patches applied at container start: engine loop, hooks, module override
 results/                  benchmark history and the logs of the validation runs
 serving/                  container entry script, ad-hoc launchers, bucket files, test tools, gates
@@ -1066,23 +1070,30 @@ tools/                    card-level benchmarks, bucket file generator
 
 ## 17. Credits and licences
 
-- **GLM-5.3** is Z.ai's model (`zai-org/GLM-5.3-BF16`), under its own licence. No weights are in this repository.
-- **vLLM** and **vllm-gaudi**: Apache-2.0. Patched at container start; no copies here.
+**This repository is under the MIT licence** (`LICENSE`). A few files contain or adapt code from Apache-2.0
+projects and stay under Apache-2.0: `NOTICE` lists them, each says so in its header, and the licence text is in
+`LICENSES/Apache-2.0.txt`.
+
+- **GLM-5.3** is Z.ai's model (`zai-org/GLM-5.3-BF16`), distributed under the GLM-5.3 License. No weights are in
+  this repository.
+- **vLLM** and **vllm-gaudi**: Apache-2.0. Both are built unmodified into the image and patched at container
+  start. The three engine patches carry fragments of vLLM's `EngineCore`, `glm53_hpu/fastlink.py` has a variant
+  of one vllm-gaudi method, and `image/Dockerfile.base` follows vllm-gaudi's own Dockerfile.
 - **gaudi-cookbook** (`thediymaker/gaudi-cookbook`, Apache-2.0): the image applies its fixes and its GLM-5 port.
-  Two parts of this repository derive from it: `glm53_hpu/dsa.py` (a revision of its `dsa.py`, as the file's
-  header says) and `serving/cookbook_gates/` (its serving gates and question file, with API-key support added).
-  The three decode levers and the pipeline-parallel fix are its work, used unchanged. The byte rules of the FP8
-  format follow its codecs.
-- **Wright** (`abotsis/wright`): a separate inference engine for Gaudi that drives the Synapse API directly. Its
-  kernels are under a noncommercial licence and none of its code is used. Three of its design ideas were
-  considered here: splitting the decode-time indexer scan across cards (done, in PyTorch), an 8-bit latent cache
-  with a per-token scale (done for the 1M profile, in a different form: one scale per token turned out to be too
-  coarse for this model), and slicing experts across cards instead of expert parallelism (not measured on the
-  real model).
+  Derived from it: `glm53_hpu/dsa.py` (a revision of its `dsa.py`, as the file's header says), the `early_draft`
+  function in `glm53_hpu/draft_chain.py`, and `serving/cookbook_gates/` (its serving gates and question file,
+  with API-key support added). The three decode levers and the pipeline-parallel fix are its work, used
+  unchanged. The byte rules of the FP8 format follow its codecs.
+- **Wright** (`abotsis/wright`): a separate inference engine for Gaudi 2 that drives the Synapse graph compiler
+  directly with its own TPC kernels. Those kernels are under PolyForm Noncommercial 1.0.0 and the rest of Wright
+  under Apache-2.0; none of its code is used here. Three of its design ideas were considered: splitting the
+  decode-time indexer scan across cards (done, in PyTorch), an 8-bit latent cache with a per-token scale (done
+  for the 1M profile, in a different form: one scale per token turned out to be too coarse for this model), and
+  slicing experts across cards instead of expert parallelism (not measured on the real model).
 - **Test models**: `inference-optimization/GLM-5.3-0.6B-A0.4B` and `GLM-5.3-3.5B-A3.3B-small` (MIT).
-- **GSM8K**: the 50 questions in `serving/cookbook_gates/gsm8k50.json` come with the cookbook's gates.
-- Everything else was written for this project. Most of the Python sources carry an
-  `SPDX-License-Identifier: Apache-2.0` header; the repository has no licence file of its own yet.
+- **GSM8K**: the 50 questions in `serving/cookbook_gates/gsm8k50.json` come with the cookbook's gates. GSM8K is
+  OpenAI's dataset, under the MIT licence.
+- Everything else was written for this project.
 
 ---
 

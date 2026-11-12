@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 # SPDX-License-Identifier: Apache-2.0
+# This patch contains source text of EngineCore from vLLM (vllm-project/vllm, Apache-2.0) and modified versions
+# of it, so this file stays under that licence (see NOTICE).
 """engine-skip-empty: stop the batch-queue engine loop from paying for empty steps (pipeline parallelism).
 
 vLLM's EngineCore.step_with_batch_queue (used when the executor allows more than one batch in flight, i.e. with

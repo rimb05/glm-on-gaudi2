@@ -1,5 +1,7 @@
 #!/bin/bash
 # SPDX-License-Identifier: Apache-2.0
+# From thediymaker/gaudi-cookbook (ports/glm-5-mxfp4/tests/hpu/run_gates.sh at commit 1540263, Apache-2.0), unchanged
+# apart from this note.
 # Serving gates for the GLM-5.2 and GLM-5.3 MXFP4 port. Start the server with the recipe's command first (the Launch
 # block of docs/recipes/glm-5-3-mxfp4.md or docs/recipes/glm-5-2-mxfp4.md), then run this in the same container or
 # anywhere that reaches it:

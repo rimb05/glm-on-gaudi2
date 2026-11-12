@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Append the glm53_hpu.fastlink hooks to the installed vllm_gaudi (idempotent; needs the cookbook's
 pipeline-parallel fix applied first). The hooks do nothing unless GLM_PP_FASTLINK=1.
 
