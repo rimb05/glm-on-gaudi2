@@ -7,7 +7,7 @@ to 77 tokens per second for one user.
 | | |
 | --- | --- |
 | Model | GLM-5.3 complete: 78 layers plus its MTP draft layer. Routed experts in FP8 (8-bit), everything else bf16; 773 GB on disk |
-| Hardware | 2 servers x 8 Gaudi 2 cards (16 x 96 GiB), joined through the cards' own scale-out ports and one switch |
+| Hardware | 2 Supermicro SYS-820GH-TNR2 servers x 8 Gaudi 2 cards (16 x 96 GiB), joined through the cards' own scale-out ports and a Dell Z9332F-ON switch |
 | Layout | 2 pipeline stages x 8 cards, tensor and expert parallelism inside each stage |
 | Context | 720,000 tokens with the cache as the model computes it, or 1,047,000 tokens with the cache stored as 8-bit codes |
 | Decode speed, one user | 70-77 tok/s at 2K tokens of context, 68 at 40K, 56-58 at 700K, 50-55 at 1,038K |
@@ -83,17 +83,21 @@ will give slightly different values. Speed and memory depend only on the archite
 
 ### 2.1 Hardware
 
-- **Two 8-card Gaudi 2 servers**, each with two Xeon Scalable sockets, 256 GB of RAM and NVMe storage. Host
-  memory and core count are not critical (the conversion ran 12 workers of 8 threads within 200 GB), but decode
-  speed depends on the hosts' core frequency
+- **Two Supermicro SYS-820GH-TNR2 servers** (board X12DPG-OA6-GD2), each with eight Gaudi 2 cards.
+- **CPUs:** two Intel Xeon Platinum 8380 per server: 40 cores each, so 80 cores and 160 threads per server.
+- **Memory:** 256 GB of DDR4-2666 per server (16 x 16 GB, about 251 GiB usable).
+- **Storage:** NVMe.
+- Host memory and core count are not critical (the conversion ran 12 workers of 8 threads within 200 GB), but
+  decode speed depends on the hosts' core frequency
   ([section 6.2](#62-performance-twins-finding-the-bottlenecks-without-the-weights)).
 - **16 Gaudi 2 cards** (HL-225), 96 GiB each, of which PyTorch can use 94.62 GiB. On a card, matrix products run
   on the matrix engine (MME) and everything else (elementwise operations, gathers, top-k) on 24 programmable
   cores (TPC).
 - **Card-to-card networking** is part of the cards. Inside a server the eight cards are linked directly. Each
-  server also exposes 24 scale-out ports of 100G through six QSFP-DD 400G connectors. Both servers plug into one
-  400G data-centre switch, with the ports broken out to 100G and set up as a lossless RoCEv2 network (priority
-  flow control, MTU 8000). This is "the fabric" in this document.
+  server also exposes 24 scale-out ports of 100G through six QSFP-DD 400G connectors.
+- **Switch:** a Dell Z9332F-ON (32 x 400G QSFP-DD) running SONiC. Twelve QSFP-DD 400G cables, six per server,
+  each port broken out to 4 x 100G (48 lanes, RS-FEC), set up as a lossless RoCEv2 network (priority flow
+  control; MTU 8000 on the servers' ports). This is "the fabric" in this document.
 - **IP on the fabric.** Scale-out ports can carry an IPv4 address, and the servers then also reach each other by
   TCP over them. One such port per server is the "fabric interface" of the settings; the stage rendezvous and
   the prefill link use it.
